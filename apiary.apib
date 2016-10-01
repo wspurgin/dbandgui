@@ -1,0 +1,170 @@
+FORMAT: 1A
+HOST: http://dbandgui.wspurgin.me/
+
+# DB and GUI
+
+DB and GUI is a simple API allowing Students to ask questions
+and answer them, as well as seeing the questions other students
+have answered.
+
+## Questions Collection [/questions]
+
+### List All Questions [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
+
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ Request (application/json)
+
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /questions/2
+
+    + Body
+    
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
+        
+
+## Students Collection [/students]
+
+### List All Students [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 12345678,
+                "name": "John Doe",
+                "classes": [
+                    {
+                        "name": "Data Structures",
+                        "id": 15
+                    },
+                    {
+                        "name": "Underwater Basket Weaving"
+                        "id": 50
+                    }
+                ]
+            },
+            {
+                "id": 87654321,
+                "name": "Jane Buck",
+                "classes": []
+            }
+        ]
+
+## Student [/student/{student_id}]
+
++ Parameters
+    + student_id (number) - ID of the student as an integer
+
+### View Student Details [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 12345678,
+            "name": "John Doe",
+            "classes": [
+                {
+                    "name": "Data Structures",
+                    "id": 15
+                },
+                {
+                    "name": "Underwater Basket Weaving"
+                    "id": 50
+                }
+            ]
+        }
+
+### Update Student Details [PUT]
+
+Update fields on a specific student.
+
++ Request (application/json)
+
+        {
+            "name": "Jacob Jingleheimer",
+            "classes": [
+                {
+                    "name": "JSON for Dummies",
+                    "id": 99
+                }
+            ]
+        }
+        
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /student/9
+        
+    + Body
+        
+            {
+                "id": 9,
+                "name": "Jacob Jingleheimer",
+                "classes": [
+                    {
+                        "name": "JSON for Dummies",
+                        "id": 99
+                    }
+                ]
+            }
