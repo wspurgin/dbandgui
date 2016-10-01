@@ -58,9 +58,9 @@ form of choices.
     + Headers
 
             Location: /questions/2
-
+    
     + Body
-
+    
             {
                 "question": "Favourite programming language?",
                 "published_at": "2015-08-05T08:40:51.620Z",
@@ -136,7 +136,8 @@ form of choices.
 
 ### Update Student Details [PUT]
 
-Update fields on a specific student.
+Update fields on a specific student. Note that the id for
+student is in the URL.
 
 + Request (application/json)
 
@@ -155,9 +156,9 @@ Update fields on a specific student.
     + Headers
 
             Location: /student/9
-
+    
     + Body
-
+    
             {
                 "id": 9,
                 "name": "Jacob Jingleheimer",
