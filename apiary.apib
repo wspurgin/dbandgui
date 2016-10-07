@@ -7,6 +7,8 @@ DB and GUI is a simple API allowing Students to ask questions
 and answer them, as well as seeing the questions other students
 have answered.
 
+# Group Questions
+
 ## Questions Collection [/questions]
 
 ### List All Questions [GET]
@@ -85,6 +87,7 @@ form of choices.
                 ]
             }
 
+# Group Students
 
 ## Students Collection [/students]
 
@@ -117,7 +120,7 @@ form of choices.
 ## Student [/student/{student_id}]
 
 + Parameters
-    + student_id (number) - ID of the student as an integer
+    + student_id (number, required) - ID of the student as an integer
 
 ### View Student Details [GET]
 
@@ -176,3 +179,49 @@ student is in the URL.
                     }
                 ]
             }
+
+
+# Group Authentication
+
+## Sessions [/sessions]
+
+### Create New Sesssion [POST]
+
+Authenticate a user (log in)
+
++ Request
+
+    + Headers
+    
+            Authorization: Basic YXdlc29tZTphdXRoCg==
+
++ Response 302 (text/plain)
+
+    + Headers
+    
+            Location:http://dbandgui.wspurgin.me/
+            Set-Cookie:request_method=POST; path=/
+            Set-Cookie:_dbandgui_session=really-long-hashed-session-id; path=/; HttpOnly
+            Transfer-Encoding:chunked
+            X-Content-Type-Options:nosniff
+            X-Frame-Options:SAMEORIGIN
+            X-XSS-Protection:1; mode=block
+        
++ Response 401 (text/plain)
+
+        
+### Delete Session [DELETE]
+
+Log out a user
+
++ Response 302 (text/plain)
+
+    + Headers
+    
+            Location:http://dbandgui.wspurgin.me/
+            Set-Cookie:request_method=DELETE; path=/
+            Set-Cookie:_dbandgui_session=long-hashed-guest-session-id; path=/; HttpOnly
+            Transfer-Encoding:chunked
+            X-Content-Type-Options:nosniff
+            X-Frame-Options:SAMEORIGIN
+            X-XSS-Protection:1; mode=block
