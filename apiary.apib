@@ -11,12 +11,15 @@ have answered.
 
 ### List All Questions [GET]
 
+Know that `publisher_id` represents the student who published the question id.
+
 + Response 200 (application/json)
 
         [
             {
                 "question": "Favourite programming language?",
                 "published_at": "2015-08-05T08:40:51.620Z",
+                "publisher_id": 12354
                 "choices": [
                     {
                         "choice": "Swift",
@@ -34,6 +37,7 @@ have answered.
                 ]
             }
         ]
+
 
 ### Create a New Question [POST]
 
@@ -133,6 +137,9 @@ form of choices.
                 }
             ]
         }
+        
++ Response 404 (text/plain)
+
 
 ### Update Student Details [PUT]
 
