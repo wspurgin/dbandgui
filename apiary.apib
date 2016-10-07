@@ -19,6 +19,7 @@ Know that `publisher_id` represents the student who published the question id.
 
         [
             {
+                "id": 1
                 "question": "Favourite programming language?",
                 "published_at": "2015-08-05T08:40:51.620Z",
                 "publisher_id": 12354
@@ -68,8 +69,10 @@ form of choices.
     + Body
     
             {
+                "id": 2
                 "question": "Favourite programming language?",
                 "published_at": "2015-08-05T08:40:51.620Z",
+                "publisher_id": 98765432
                 "choices": [
                     {
                         "choice": "Swift",
@@ -86,6 +89,56 @@ form of choices.
                     }
                 ]
             }
+            
+## Question [/questions/{question_id}{?choices}]
+
++ Parameters
+    + question_id: `2` (number, required) - The identifier of the question
+    + choices: `true` (boolean, optional) - Logical to indicate if choices are returned
+        + Default: `true`
+
+### View Question Details [GET]
+
+When the parameter `chioces` is `false` then the choices attribute will
+be an empty array.
+
++ Response 200
+
+        {
+            "id": 2
+            "question": "Favourite programming language?",
+            "published_at": "2015-08-05T08:40:51.620Z",
+            "publisher_id": 98765432
+            "choices": [
+                {
+                    "choice": "Swift",
+                    "votes": 0
+                }, {
+                    "choice": "Python",
+                    "votes": 0
+                }, {
+                    "choice": "Objective-C",
+                    "votes": 0
+                }, {
+                    "choice": "Ruby",
+                    "votes": 0
+                }
+            ]
+        }
++ Request choices=false
+    + Parameter
+        + choices: `false`
+
++ Response 200
+
+        {
+            "id": 2
+            "question": "Favourite programming language?",
+            "published_at": "2015-08-05T08:40:51.620Z",
+            "publisher_id": 98765432,
+            "choices": []
+        }
+
 
 # Group Students
 
@@ -120,7 +173,7 @@ form of choices.
 ## Student [/student/{student_id}]
 
 + Parameters
-    + student_id (number, required) - ID of the student as an integer
+    + student_id: `12345678` (number, required) - ID of the student as an integer
 
 ### View Student Details [GET]
 
