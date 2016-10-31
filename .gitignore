@@ -18,3 +18,11 @@ composer.phar
 /node_modules
 /vendor
 
+public/css
+public/build
+public/js
+public/app
+public/node_modules
+
+
+.env
