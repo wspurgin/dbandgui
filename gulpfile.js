@@ -1,4 +1,6 @@
+var gulp   = require('gulp');
 var elixir = require('laravel-elixir');
+var fs = require('fs');
 
 /*
  |--------------------------------------------------------------------------
@@ -17,13 +19,18 @@ elixir(function(mix) {
     mix.sass('app.scss');
     mix.styles('app.css', 'public/build/css/app.css', 'public/css');
 
-    mix.copy('node_modules/@angular', 'public/node_modules/@angular');
-    mix.copy('node_modules/core-js', 'public/node_modules/core-js');
-    mix.copy('node_modules/rxjs', 'public/node_modules/rxjs');
-    mix.copy('node_modules/systemjs', 'public/node_modules/systemjs');
-    mix.copy('node_modules/zone.js/', 'public/node_modules/zone.js/');
-    mix.copy('node_modules/reflect-metadata',
-      'public/node_modules/reflect-metadata');
+    package_path = './package.json';
+    if (fs.statSync(package_path) !== undefined) {
+      var package_file = JSON.parse(fs.readFileSync(package_path, 'utf8'));
+      var dependencies = package_file.dependencies;
 
-    mix.typescript(['main.ts', 'app.component.ts', 'app.module.ts'], './public/app');
+      for (var dependency in dependencies) {
+        if (dependencies.hasOwnProperty(dependency)) {
+          full_path = 'node_modules/' + dependency + "/";
+          mix.copy(full_path, 'public/' + full_path);
+        }
+      }
+    }
+
+    mix.typescript('**/*.ts', './public');
 });
